@@ -8,9 +8,7 @@ import java.util.Date;
 @Component
 public class JwtUtils {
 
-	private String secretKey = "X9fK2s8Jb4Lq7VwzAm3YtN0Hd5RgU1eKhPbTcMfZiXsCvBnEqLrOjSwDgTyVuWxQX9fK2s8Jb4Lq7VwzAm3YtN0Hd5RgU1eKhPbTcMfZiXsCvBnEqLrOjSwDgTyVuWxQ";
-	
-
+	private String secretKey = "Z3pN8rXyVb1LtCwQeMdHoAfKsGjRuYkPiXsNvBtLqWmEdCrTfGhZjXoPvLaKbMnZ3pN8rXyVb1LtCwQeMdHoAfKsGjRuYkPiXsNvBtLqWmEdCrTfGhZjXoPvLaKbMn";
 	 
     public String generateJwtToken(String username) {
         return Jwts.builder()
