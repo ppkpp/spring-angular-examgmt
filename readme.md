@@ -24,15 +24,15 @@ This project is a containerized Course Management System built with Spring Boot 
 1. Development:
 
    ```bash
-   git clone https://github.com/yourusername/course-management-docker.git
-   cd course-management-docker
+   git clone https://github.com/ppkpp/spring-angular-examgmt.git
+   cd spring-angular-examgmt
    docker-compose up --build
 
 2. Production:
 
    ```bash
-   git clone https://github.com/yourusername/course-management-docker.git
-   cd course-management-docker
+   git clone https://github.com/ppkpp/spring-angular-examgmt.git
+   cd spring-angular-examgmt
    docker-compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d
 
 
