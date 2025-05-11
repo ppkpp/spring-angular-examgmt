@@ -75,8 +75,7 @@ public class ExamSessionController {
 		}
 
 		Course course = courseOptional.get();
-		System.out.println("Exam Time");
-		System.out.println(course.getQuizTime());
+		
 		// 3. Fetch ExamSession by student and course
 		Optional<ExamSession> examSessionOptional = examSessionRepository.findByStudentAndCourse(student, course);
 		if (examSessionOptional.isEmpty()) {
@@ -141,7 +140,7 @@ public class ExamSessionController {
 			return ResponseEntity.status(HttpStatus.CONFLICT)
 					.body("You have already submitted an answer for this quiz.");
 		}
-		System.out.println(quiz.getCourse().getQuizTime() );
+		
 		// ✅ Check if exam time is exceeded before submitting
 		if (quiz.getCourse().getQuizTime() != null) {
 			
@@ -177,7 +176,7 @@ public class ExamSessionController {
 		// ✅ Update session if this is the final answerWW
 		
 		if (request.isFinalAnswer()) {
-			System.out.println("Finish Exam ***********");
+			
 		    session.setIsFinished(true);
 		    session.setEndTime(LocalDateTime.now());
 		    examSessionRepository.save(session);

@@ -21,11 +21,20 @@ This project is a containerized Course Management System built with Spring Boot 
 
 ### Steps to Run
 
-1. Clone the repository:
+1. Development:
 
    ```bash
    git clone https://github.com/yourusername/course-management-docker.git
    cd course-management-docker
+   docker-compose up --build
+
+2. Production:
+
+   ```bash
+   git clone https://github.com/yourusername/course-management-docker.git
+   cd course-management-docker
+   docker-compose -f docker-compose.yml -f docker-compose.prod.yml up --build -d
+
 
 ## 📸 Screenshots
 
@@ -35,6 +44,41 @@ This project is a containerized Course Management System built with Spring Boot 
 
 ---
 
-### 📊 Admin Quiz Management Page
+### 📝 Admin Quiz Management
 
 <img src="images/quizz.png" alt="Quiz Management" width="700"/>
+
+---
+### 📋 Admin Exam Management
+
+<img src="images/exam.png" alt="Exam Management" width="700"/>
+
+---
+### 📋 Admin Exam Result
+
+<img src="images/exam-result.png" alt="Exam Management" width="700"/>
+
+
+---
+
+### 🎓 Client Course List
+
+<img src="images/client-course.png" alt="Admin Dashboard" width="700"/>
+
+---
+
+### 📥 Enroll in a Course
+
+<img src="images/client-enroll.png" alt="Quiz Management" width="700"/>
+
+### 🎓 Client Exam
+
+<img src="images/client-exam.png" alt="Admin Dashboard" width="700"/>
+
+---
+
+### 📈 Client Result
+
+<img src="images/client-result.png" alt="Quiz Management" width="700"/>
+
+---

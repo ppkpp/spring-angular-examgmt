@@ -1,0 +1,56 @@
+services:
+  admin-backend:
+    build:
+      context: ./course-admin-backend
+      dockerfile: Dockerfile
+    container_name: admin-backend
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - ./uploads:/app/uploads
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/course_manage
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: toor
+
+  client-backend:
+    build:
+      context: ./course-client-backend
+      dockerfile: Dockerfile
+    container_name: client-backend
+    restart: always
+    ports:
+      - "8081:8081"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - ./uploads:/app/uploads
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/course_manage
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: toor
+
+  admin-frontend:
+    build:
+      context: ./course-admin-frontend
+    container_name: admin-frontend
+    restart: always
+    ports:
+      - "4200:80"
+    depends_on:
+      - admin-backend
+
+  client-frontend:
+    build:
+      context: ./course-client-frontend
+    container_name: client-frontend
+    restart: always
+    ports:
+      - "4201:80"
+    depends_on:
+      - client-backend
