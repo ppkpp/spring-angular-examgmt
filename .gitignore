@@ -1,6 +1,7 @@
 # Ignore Docker volumes
 db_data/
-uploads/
+/uploads/*
+!/uploads/.gitkeep
 
 # Ignore environment files
 .env
