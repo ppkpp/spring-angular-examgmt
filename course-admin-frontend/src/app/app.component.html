@@ -1,0 +1,14 @@
+<div class="wrapper d-flex align-items-stretch">
+  <!-- Sidebar component -->
+  <app-sidebar *ngIf="showSidebarAndToolbar"></app-sidebar>
+
+  <!-- Page Content -->
+  <div id="content" class="p-4 p-md-5">
+    <!-- Toolbar component -->
+    <app-toolbar *ngIf="showSidebarAndToolbar"></app-toolbar>
+
+    <!-- Dynamic page content -->
+    <router-outlet></router-outlet>
+    <app-confirm-dialog></app-confirm-dialog>
+  </div>
+</div>

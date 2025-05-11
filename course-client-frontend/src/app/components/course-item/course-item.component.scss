@@ -1,0 +1,32 @@
+.course_image {
+  width: 100%;
+  height: 200px; // or any fixed height you want
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.course_badge {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+
+  color: #fff;
+  padding: 5px 12px;
+  font-size: 12px;
+  border-radius: 50px;
+  font-weight: 600;
+  z-index: 1;
+}
+
+.course_image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; // cover makes it fill the container and crop if needed
+  display: block;
+}
+
+
+.course_title {
+  cursor: pointer;
+  /* This makes the cursor appear as a hand when hovered */
+}

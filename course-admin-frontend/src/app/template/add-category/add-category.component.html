@@ -1,0 +1,59 @@
+
+            <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" class="card p-4 shadow rounded-4 border-0">
+                <!-- Category Name -->
+                <div class="mb-3">
+                    <button type="button" class="btn btn-outline-secondary" (click)="goBack()">
+                        <i class="fas fa-arrow-left me-2"></i> Back
+                    </button>
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" id="name" class="form-control" formControlName="name"
+                        placeholder="Enter category name" required>
+                </div>
+
+                <!-- Image Upload -->
+                <div class="mb-3" *ngIf="!categoryForm.value.imageUrl">
+                    <label class="form-label">Image</label>
+                    <!-- Replace with reusable file upload component -->
+                    <app-file-upload (fileUploaded)="onFileUploaded($event)"></app-file-upload>
+                </div>
+
+                <!-- Image Preview -->
+                <div class="mb-3" *ngIf="categoryForm.value.imageUrl">
+                    <div class="card shadow-sm border rounded-3">
+                        <div class="p-2">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <img *ngIf="categoryForm.value.imageUrl" [src]="fullImageUrl" alt="Preview"
+                                        class="img-thumbnail rounded" style="width: 80px; height: auto;" />
+                                </div>
+                                <div class="col ps-0">
+                                    <span class="fw-bold text-muted">Image uploaded</span>
+                                    <p class="mb-0 text-muted"><strong>0.2</strong> MB</p>
+                                </div>
+                                <div class="col-auto">
+                                    <button type="button" class="btn btn-link text-danger" (click)="removeImage()"
+                                        title="Remove image">
+                                        <i class="fas fa-trash-alt fa-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" class="btn w-100 text-white mt-3" [disabled]="categoryForm.invalid"
+                    style="background-color: #0097B2;">
+                    {{ isEditMode ? 'Update' : 'Create' }} Category
+                </button>
+            </form>
+
+            <!-- Alerts -->
+            <div *ngIf="successMessage" class="alert alert-success mt-3">
+                {{ successMessage }}
+            </div>
+            <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+                {{ errorMessage }}
+            </div>

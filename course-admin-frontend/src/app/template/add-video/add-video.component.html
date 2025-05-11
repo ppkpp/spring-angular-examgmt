@@ -1,0 +1,103 @@
+<form [formGroup]="videoCourseForm" (ngSubmit)="onSubmit()"  class="card p-4 shadow rounded-4 border-0">
+  <div class="mb-3">
+    <button type="button" class="btn btn-outline-secondary" (click)="goBack()">
+      <i class="fas fa-arrow-left me-2"></i> Back
+    </button>
+  </div>
+  <div class="mb-3">
+    <label>Title</label>
+    <input type="text" class="form-control" formControlName="title" />
+  </div>
+  
+  <div class="mb-3">
+    <label>Order Number</label>
+    <input type="number" class="form-control" formControlName="orderNumber" />
+  </div>
+
+  <div class="mb-3">
+    <label>Course</label>
+    <div class="ng-autocomplet">
+      <ng-autocomplete
+        [data]="data"
+        [searchKeyword]="keyword"
+        placeholder="Select Course"
+        (selected)="selectEvent($event)"
+        (inputChanged)="onChangeSearch($event)"
+        (inputFocused)="onFocused($event)"
+        [itemTemplate]="selectCoruseTemplate"
+        [notFoundTemplate]="notFoundTemplate"
+      >
+      </ng-autocomplete>
+
+      <ng-template #selectCoruseTemplate let-item>
+        <a href="javascript:void(0)">
+          <span [innerHTML]="item.title"></span>
+        </a>
+      </ng-template>
+
+      <ng-template #notFoundTemplate let-notFound>
+        <div>No records found</div>
+      </ng-template>
+    </div>
+  </div>
+
+  <div class="mb-3" *ngIf="!videoCourseForm.value.imageUrl">
+    <label>Image</label>
+    <app-file-upload (fileUploaded)="onFileUploaded($event)"></app-file-upload>
+  </div>
+
+  <div class="mb-3" *ngIf="videoCourseForm.value.imageUrl">
+    <div class="dropzone-previews mt-3" id="file-previews">
+      <div
+        class="card mt-1 mb-0 shadow-none border dz-processing dz-error dz-complete dz-image-preview"
+      >
+        <div class="p-2">
+          <div class="row align-items-center">
+            <div class="col-auto">
+              <img
+                *ngIf="videoCourseForm.value.imageUrl"
+                [src]="fullImageUrl"
+                alt="Preview"
+                class="img-thumbnail custom-img"
+              />
+            </div>
+            <div class="col ps-0">
+              <a
+                href="javascript:void(0);"
+                class="text-muted fw-bold"
+                data-dz-name=""
+                >{{ this.uploadedVideo.savedFilename }}</a
+              >
+              <p class="mb-0" data-dz-size="">
+                <strong>{{ this.uploadedVideo.fileType }}</strong>
+              </p>
+            </div>
+            <div class="col-auto">
+              <a
+                class="btn btn-link btn-lg text-danger"
+                (click)="removeImage()"
+              >
+                <i class="fas fa-trash-alt"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="description">Description</label>
+    <textarea class="form-control" formControlName="description"></textarea>
+  </div>
+  <button type="submit" class="btn w-100 text-white mt-3" [disabled]="videoCourseForm.invalid"
+    style="background-color: #0097B2;">
+    {{ isEditMode ? "Update" : "Create" }} Video 
+  </button>
+</form>
+
+<div *ngIf="successMessage" class="alert alert-success mt-3">
+  {{ successMessage }}
+</div>
+<div *ngIf="errorMessage" class="alert alert-danger mt-3">
+  {{ errorMessage }}
+</div>

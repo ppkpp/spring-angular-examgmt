@@ -1,0 +1,38 @@
+
+
+<!-- In your Angular component template -->
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class=" shadow p-4 w-100 col-md-6" >
+     
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" class="form-control form-control-md" id="username" formControlName="username" required />
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control form-control-md" id="password" formControlName="password" required />
+            </div>
+
+            <div *ngIf="errorMessage" class="alert alert-danger my-2">
+                {{ errorMessage }}
+            </div>
+
+            <button type="submit" class="btn  btn-block btn-md">
+                Sign in
+            </button>
+
+            <!-- Register link below button -->
+            <div class="text-center mt-3">
+                <small>Don't have an account?
+               <a   [routerLink]="['/register']" class="logo_color font-weight-bold">Register here</a>
+                </small>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Font Awesome (Optional for icons) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />

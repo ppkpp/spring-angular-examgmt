@@ -1,0 +1,34 @@
+
+
+.modal-custom {
+    max-width: 90%;
+    width: 90%;
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+.modal-content {
+    border-radius: 8px;
+}
+
+.modal-header {
+    background-color: #343a40;
+    color: white;
+}
+
+.custom-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(128, 128, 128, 0.5);
+    /* Gray with 50% transparency */
+    z-index: 1050;
+    /* Make sure it's above your page content */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

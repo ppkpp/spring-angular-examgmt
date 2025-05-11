@@ -1,0 +1,122 @@
+#sidebar {
+    min-width: 280px;
+    max-width: 280px;
+    height: 100vh;
+    background: #0097B2;
+    color: white;
+    transition: all 0.3s;
+}
+
+#sidebar.active {
+    margin-left: -280px;
+}
+
+#sidebar .logo {
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background-size: cover;
+}
+
+#sidebar ul li a {
+    cursor: pointer;
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    transition: 0.3s ease-in-out;
+}
+
+#sidebar ul li a:hover {
+    background-color: rgba(0, 151, 178, 0.8);
+    color: #fff;
+}
+
+#sidebar ul li.active>a {
+    background-color: rgba(0, 151, 178, 0.85);
+    /* Darker shade for better contrast */
+    color: white;
+    font-weight: bold;
+    /* Make the active link stand out more */
+    border-left: 4px solid #ffffff;
+    /* Add a left border to highlight the active link */
+    padding-left: 11px;
+    /* Slightly adjust padding to accommodate the border */
+    transition: background-color 0.3s ease, padding-left 0.3s ease;
+    /* Smooth transition */
+}
+
+#sidebar ul li.active>a:hover {
+    background-color: rgba(0, 151, 178, 0.9);
+    /* Slightly change color on hover */
+}
+
+#sidebar ul li a i {
+    margin-right: 10px;
+}
+
+#sidebar .footer {
+    text-align: center;
+    position: absolute;
+    bottom: 20px;
+    left: 1rem;
+    font-size: 0.85rem;
+    color: white;
+}
+
+#sidebar label {
+    display: block;
+    font-size: 18px;
+    color: white;
+    margin-left: 15px;
+    margin-top: 10px;
+}
+
+.side-nav-item {
+    list-style-type: none;
+    padding: 0;
+}
+
+.side-nav-link {
+    text-decoration: none;
+    display: block;
+    padding: 10px 15px;
+    color: white;
+    font-size: 14px;
+}
+
+.side-nav-link:hover {
+    background-color: rgba(0, 151, 178, 0.6);
+}
+
+@media (max-width: 991.98px) {
+    #sidebar {
+        margin-left: -280px;
+    }
+
+    #sidebar.active {
+        margin-left: 0;
+    }
+
+    #sidebar ul li a {
+        padding: 10px;
+    }
+
+    .sidebar-footer {
+        position: static;
+        margin-top: 20px;
+    }
+}
+
+
+
+
+.subMenu
+{
+   margin-left:1rem;
+}
+

@@ -1,0 +1,58 @@
+<div class="container height-enabled pt-5 mt-3 d-flex flex-column" style="min-height: 100vh;">
+    <div class="flex-grow-1">
+  <div class="page-title-overlap bg-accent pt-4" bis_skin_checked="1"></div>
+  <div class="px-3 mb-5 pb-3" bis_skin_checked="1">
+    <div
+      class="bg-light shadow-lg rounded-3 overflow-hidden"
+      bis_skin_checked="1"
+    >
+      <div class="row" bis_skin_checked="1">
+        <!-- Sidebar-->
+        <aside class="col-lg-4 pe-xl-5">
+          <!-- Account menu toggler (hidden on screens larger 992px)-->
+
+          <!-- Actual menu-->
+          <div class="h-100 border-end mb-2" bis_skin_checked="1">
+            <div
+              class="d-lg-block collapse show"
+              id="account-menu"
+              bis_skin_checked="1"
+              style=""
+            >
+              <div class="bg-secondary p-4" bis_skin_checked="1">
+                <h3 class="fs-sm mb-0 text-muted">Account</h3>
+              </div>
+              <ul class="list-unstyled mb-0">
+                <li class="border-bottom mb-0" routerLinkActive="active">
+                  <a class="nav-link-style d-flex align-items-center px-4 py-3"
+                   [routerLink]="['/profile/enrolled-course']" ><i class="ci-user opacity-60 me-2"></i>Courses</a
+                  >
+                </li>
+
+              
+
+                <li class="border-bottom mb-0" routerLinkActive="active">
+                  <a class="nav-link-style d-flex align-items-center px-4 py-3"
+                      [routerLink]="['/profile/detail']"><i class="ci-document opacity-60 me-2"></i>Profile<span
+                      class="fs-sm text-muted ms-auto"
+                    ></span
+                  ></a>
+                </li>
+
+                <li class="mb-0">
+                  <a class="nav-link-style d-flex align-items-center px-4 py-3" (click)="confirmLogout()"
+                    ><i class="fa fa-sign-out opacity-60 me-2"></i>Logout</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </aside>
+        <section class="col-lg-8 pt-lg-4 pb-4 mb-3">
+                <router-outlet></router-outlet>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

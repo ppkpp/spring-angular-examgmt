@@ -1,0 +1,152 @@
+<!-- Course Card -->
+<div *ngIf="course" class="card p-4 shadow-sm rounded-4" style="margin-top: 100px;">
+    <!-- Header Section -->
+    <div class="d-flex flex-wrap justify-content-between align-items-start mb-4">
+        <div>
+            <h2 class="fs-4 fw-bold text-primary mb-1">{{course.title}}</h2>
+            <span class="badge bg-warning text-dark mb-3">{{course.category.name}}</span>
+
+            <!-- Instructor Info -->
+            <div class="d-flex align-items-center text-muted mb-2">
+                <i class="fa fa-user me-2 text-dark"></i>
+                <span class="fw-medium">Instructor: {{course.instructorName}}</span>
+            </div>
+
+            <!-- Videos & Quizzes -->
+            <div class="d-flex flex-wrap gap-4 mt-2 text-muted">
+                <a class="btn btn-primary d-flex align-items-center gap-2 btn-sm" [routerLink]="['/video-list', course.id]">
+                <div class="d-flex align-items-center">
+                    <i class="fa fa-video-camera me-2"></i>
+                    <span class="fw-medium">{{course.video.length}} Videos</span>
+                </div>
+            </a>
+                <a class="btn btn-success btn-sm d-flex align-items-center gap-2 ml-2" [routerLink]="['/quiz', course.id]">
+                <div class="d-flex align-items-center ml-2">
+                    <i class="fa fa-question-circle me-2 "></i>
+                    <span class="fw-medium">{{course.quiz.length}} Quizzes</span>
+                </div>
+            </a>
+            </div>
+        </div>
+
+        <!-- Right Side Info -->
+        <div class="text-end ms-auto mt-2">
+            <div class="d-flex flex-column align-items-end gap-2">
+                <div class="d-flex align-items-center text-info">
+                    <i class="fa fa-clock-o me-2"></i>
+                    <span class="fw-semibold">Duration: {{course.duration}}</span>
+                </div>
+                <div class="d-flex align-items-center text-info">
+                    <i class="fa fa-hourglass-half me-2"></i>
+                    <span class="fw-semibold">Exam : {{course.quizTime}} Minutes</span>
+                </div>
+                <div class="d-flex align-items-center text-danger">
+                    <i class="fa fa-money me-2"></i>
+                    <span class="fw-semibold">Fees: {{ formatMoney(course.fees) }} MMK</span>
+                </div>
+                <div class="text-secondary small mt-2">Course Date: {{ getCourseDate(course.createDate) }}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Section -->
+    <div class="mb-4 text-center">
+        <img [src]="getImageUrl(course.imageUrl)" alt="Course Image" class="img-fluid rounded-4 shadow-sm"
+            style="max-width: 100%; height: auto; max-height: 400px;">
+    </div>
+
+    <!-- Description -->
+    <p class="fs-5 text-muted mb-4">
+        {{course.description}} {{isEnrolled}}
+    </p>
+
+    <!-- Back Button and Enroll Button -->
+    <div class="d-flex justify-content-between align-items-center">
+        <!-- Back Button -->
+        <button class="btn btn-outline-secondary px-4 py-2 rounded-pill shadow-sm" (click)="goBack()"
+            style="transition: all 0.3s ease;">
+            <i class="fa fa-arrow-left me-2"></i> Back
+        </button>
+        
+        
+        <!-- Enroll Button (Right Side) -->
+        <a *ngIf="!isEnrolled"  (click)="openModal()" class="btn btn-gradient btn-lg px-5 py-2 fw-semibold text-white rounded-pill shadow-sm">
+            <i class="fa fa-check-circle me-2"></i> Enroll Now
+        </a>
+    </div>
+</div>
+
+<!-- Modal -->
+<div *ngIf="isModalOpen" class="modal fade show" style="display: block;" tabindex="-1"
+    aria-labelledby="enrollModalLabel" aria-hidden="true">
+    <div class="modal-dialog" *ngIf="!isEnrolled" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="enrollModalLabel">Enroll in Course</h5>
+                <!-- Close Icon -->
+                <i class="fa fa-times text-muted" (click)="closeModal()"
+                    style="cursor: pointer; font-size: 1.5rem;"></i>
+            </div>
+            <div class="modal-body">
+                <!-- Form -->
+                
+                    <form [formGroup]="enrollForm" (ngSubmit)="onSubmit()" class="p-4">
+
+                   
+                    <div class="mb-3" *ngIf="!enrollForm.value.imageUrl">
+                        <label>Image</label>
+                        <app-file-upload (fileUploaded)="onFileUploaded($event)"></app-file-upload>
+                    </div>
+                    
+                    <div class="mb-3" *ngIf="enrollForm.value.imageUrl">
+                        <div class="dropzone-previews mt-3" id="file-previews">
+                            <div class="card mt-1 mb-0 shadow-none border dz-processing dz-error dz-complete dz-image-preview">
+                                <div class="p-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <img *ngIf="enrollForm.value.imageUrl" [src]="fullImageUrl" alt="Preview"
+                                                class="img-thumbnail custom-img" />
+                                        </div>
+                                        <div class="col ps-0">
+                                            <p class="mb-0"><strong>Image Preview</strong></p>
+                                        </div>
+                                        <div class="col-auto">
+                                            <a class="btn btn-link btn-lg text-danger" (click)="removeImage()">
+                                                <i class="fa fa-remove menu_mm" aria-hidden="true"></i>
+                    
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" formControlName="notes"></textarea>
+                    </div>
+
+
+                <div class="d-flex justify-content-between">
+                    <!-- Cancel Button -->
+                     <span class="flex-1"></span>
+                    
+                
+                    <!-- Submit Button, aligned to the right -->
+                     <div>
+                        <button type="button" class="btn btn-outline-secondary" (click)="closeModal()">
+                            Cancel
+                        </button>
+                        <button type="submit" class="btn btn-primary ml-2">
+                            <i class="fa fa-check-circle me-2"></i> Save
+                        </button>
+                     </div>
+                    
+                </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

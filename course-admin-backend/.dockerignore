@@ -1,0 +1,24 @@
+# OS and IDE
+.DS_Store
+.idea/
+*.iml
+.vscode/
+
+# Git
+.git
+.gitignore
+
+# Logs
+*.log
+
+# Maven or Gradle
+target/
+build/
+out/
+
+# Environment files
+.env
+
+# Docker
+Dockerfile
+.dockerignore

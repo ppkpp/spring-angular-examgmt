@@ -1,0 +1,114 @@
+<!-- styles.css or in your component's global style -->
+<style>
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+    }
+</style>
+
+<!-- In your Angular component template -->
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="shadow p-4 w-100">
+        <h2>Register</h2>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+            <!-- Username Field -->
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" formControlName="username" class="form-control" id="username" required>
+                <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched"
+                    class="text-danger">
+                    Username is required.
+                </div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group" >
+                <label for="password">Password:</label>
+                <input type="password" formControlName="password" class="form-control" id="password" required>
+                <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+                    class="text-danger">
+                    Password is required and must be at least 6 characters.
+                </div>
+            </div>
+
+            <!-- Phone Number Field -->
+            <div class="form-group">
+                <label for="phone">Phone No:</label>
+                <input type="text" formControlName="phone" class="form-control" id="phone" required>
+                <div *ngIf="registerForm.get('phone')?.invalid && registerForm.get('phone')?.touched"
+                    class="text-danger">
+                    Phone number is required and must be valid.
+                </div>
+            </div>
+
+            <!-- Email Field -->
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" formControlName="email" class="form-control" id="email" required>
+                <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+                    class="text-danger">
+                    Please enter a valid email.
+                </div>
+            </div>
+
+            <!-- Date of Birth Field -->
+            <div class="form-group">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" formControlName="dob" class="form-control" id="dob" required>
+                <div *ngIf="registerForm.get('dob')?.invalid && registerForm.get('dob')?.touched"
+                    class="text-danger">
+                    Date of Birth is required.
+                </div>
+            </div>
+
+            <!-- Image Upload Field -->
+            <div class="mb-3" *ngIf="!registerForm.value.imageUrl">
+                <label>Image</label>
+                <app-file-upload (fileUploaded)="onFileUploaded($event)"></app-file-upload>
+            </div>
+            
+            <div class="mb-3" *ngIf="registerForm.value.imageUrl">
+                <div class="dropzone-previews mt-3" id="file-previews">
+                    <div class="card mt-1 mb-0 shadow-none border dz-processing dz-error dz-complete dz-image-preview">
+                        <div class="p-2">
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <img *ngIf="registerForm.value.imageUrl" [src]="fullImageUrl" alt="Preview"
+                                        class="img-thumbnail custom-img" />
+                                </div>
+                                <div class="col ps-0">
+                                    <p class="mb-0"><strong>Image Preview</strong></p>
+                                </div>
+                                <div class="col-auto">
+                                    <a class="btn btn-link btn-lg text-danger" (click)="removeImage()">
+                                <i class="fa fa-remove menu_mm" aria-hidden="true"></i>
+
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Gender Field -->
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select formControlName="gender" class="form-control" id="gender">
+                    <option value="" disabled>Select gender</option>
+                    <option value="MALE">Male</option>
+                    <option value="FEMALE">Female</option>
+  
+                </select>
+                <div *ngIf="registerForm.get('gender')?.invalid && registerForm.get('gender')?.touched"
+                    class="text-danger">
+                    Gender is required.
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+</div>

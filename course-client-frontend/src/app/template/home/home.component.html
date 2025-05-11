@@ -1,0 +1,32 @@
+<app-banner></app-banner>
+<div class="courses">
+  <div class="courses_background"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h2 class="section_title text-center">Latest Online Courses</h2>
+      </div>
+    </div>
+    <div class="row courses_row">
+      <div class="col-lg-4 course_col" *ngFor="let course of courses">
+        <app-course-item [course]="course"></app-course-item>
+      </div>
+    </div>
+
+    <div class="events">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <h2 class="section_title text-center">Categories</h2>
+          </div>
+        </div>
+        <div class="row events_row">
+          <div class="col-lg-4 event_col" *ngFor="let category of categories">
+            <app-category-item [category]="category"></app-category-item>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

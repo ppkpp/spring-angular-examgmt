@@ -1,0 +1,81 @@
+.card {
+    border: none;
+    overflow: hidden;
+    border-radius: 10px;
+    position: relative;
+}
+
+.image-wrapper {
+    position: relative;
+}
+
+.card img {
+    object-fit: cover;
+    height: 200px;
+    width: 100%;
+    display: block;
+    border-radius: 10px;
+}
+
+/* Hover overlay effect */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(108, 99, 255, 0.4);
+    /* transparent black */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 10px;
+}
+
+.image-wrapper:hover .overlay {
+    opacity: 1;
+}
+
+/* Always visible text */
+.overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bold;
+    font-size: 1.5rem;
+    z-index: 2;
+    pointer-events: none;
+    /* allow hover to go through to the .overlay */
+}
+
+.card {
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.overlay-text {
+    opacity: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.image-wrapper:hover .overlay-text {
+    transform: translate(-50%, -50%) scale(1.05);
+}
+
+.image-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.image-wrapper img {
+    transition: transform 0.4s ease;
+}
+
+.image-wrapper:hover img {
+    transform: scale(1.05);
+}

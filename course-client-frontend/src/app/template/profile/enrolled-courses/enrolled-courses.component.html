@@ -1,0 +1,15 @@
+<div class="course-list">
+  <div *ngIf="isLoading" class="loading-spinner">
+    Loading enrolled courses...
+  </div>
+
+  <div *ngIf="!isLoading && enrolledCourses.length === 0">
+    You haven't enrolled in any courses yet.
+  </div>
+
+  <div *ngIf="!isLoading && enrolledCourses.length > 0">
+    <div class="col-lg-4 course_col" *ngFor="let course of enrolledCourses">
+        <app-course-item [course]="course"></app-course-item>
+    </div>
+  </div>
+</div>

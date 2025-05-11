@@ -1,0 +1,61 @@
+<header class="header">
+  <!-- Header Content -->
+  <div class="header_container">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div
+            class="header_content d-flex flex-row align-items-center justify-content-start"
+          >
+            <div class="logo_container mr-auto">
+              <a href="#">
+                <div class="logo_text">ELearning</div>
+              </a>
+            </div>
+            <nav class="main_nav_contaner">
+              <ul class="main_nav">
+                <li
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                >
+                  <a routerLink="/">Home</a>
+                </li>
+                <li routerLinkActive="active">
+                  <a [routerLink]="['/category']">Category</a>
+                </li>
+                <li routerLinkActive="active">
+                  <a [routerLink]="['/course']">Courses</a>
+                </li>
+                <!-- <li routerLinkActive="active"><a  [routerLink]="['/quiz']">Quizzes</a></li> -->
+                <li routerLinkActive="active" *ngIf="authService.isLoggedIn()">
+                  <a [routerLink]="['/profile']">Profile</a>
+                </li>
+                <li routerLinkActive="active">
+                  <a [routerLink]="['/about']">About</a>
+                </li>
+                <li *ngIf="!authService.isLoggedIn()" routerLinkActive="active">
+                  <a [routerLink]="['/login']">Login</a>
+                </li>
+               
+              </ul>
+            </nav>
+            <div class="header_content_right ml-auto text-right">
+              <!-- Hamburger -->
+
+              <div class="user" *ngIf="authService.isLoggedIn()" >
+               
+                <a (click)="confirmLogout()"
+                  ><i class="fa fa-sign-out" aria-hidden="true"></i
+                ></a>
+              </div>
+
+              <div class="hamburger menu_mm">
+                <i class="fa fa-bars menu_mm" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

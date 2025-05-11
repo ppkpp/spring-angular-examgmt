@@ -1,0 +1,81 @@
+<div class="container mt-4">
+    <div class="card shadow rounded-4 border-0 p-4">
+        <div class="card-body">
+            <h3 class="fw-bold mb-4" style="color: #0097B2;">➕ Create User</h3>
+
+            <form [formGroup]="createUserForm" (ngSubmit)="onSubmit()">
+                <!-- Username -->
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" formControlName="username" id="username" class="form-control" required>
+                    <div *ngIf="createUserForm.get('username')?.invalid && createUserForm.get('username')?.touched"
+                        class="text-danger">
+                        Username is required.
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3" *ngIf="!isEditMode">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" formControlName="password" id="password" class="form-control" required>
+                    <div *ngIf="createUserForm.get('password')?.invalid && createUserForm.get('password')?.touched"
+                        class="text-danger">
+                        Password is required and must be at least 6 characters.
+                    </div>
+                </div>
+
+                <!-- Retype Password -->
+                <div class="mb-3" *ngIf="!isEditMode">
+                    <label for="retypePassword" class="form-label">Retype Password</label>
+                    <input type="password" formControlName="retypePassword" id="retypePassword" class="form-control"
+                        required>
+                    <div *ngIf="createUserForm.hasError('mismatch') && createUserForm.get('retypePassword')?.touched"
+                        class="text-danger">
+                        Passwords do not match.
+                    </div>
+                </div>
+
+                <!-- Role -->
+                <div class="mb-3">
+                    <label for="role" class="form-label">Role</label>
+                    <select formControlName="role" id="role" class="form-select"  class="form-control">
+                        <option value="ADMIN">Admin</option>
+                        <option value="TEACHER">Teacher</option>
+                    </select>
+                </div>
+
+                <!-- Phone -->
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone No</label>
+                    <input type="text" formControlName="phone" id="phone" class="form-control" required>
+                    <div *ngIf="createUserForm.get('phone')?.invalid && createUserForm.get('phone')?.touched"
+                        class="text-danger">
+                        Phone number is required and must be 10 digits.
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" formControlName="email" id="email" class="form-control" required>
+                    <div *ngIf="createUserForm.get('email')?.invalid && createUserForm.get('email')?.touched"
+                        class="text-danger">
+                        Please enter a valid email.
+                    </div>
+                </div>
+
+                <!-- Active -->
+                <div class="form-check mb-3">
+                    <input type="checkbox" formControlName="active" id="active" class="form-check-input">
+                    <label for="active" class="form-check-label">Active</label>
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" class="btn w-100 text-white" [disabled]="createUserForm.invalid"
+                    style="background-color: #0097B2;">
+                    {{ isEditMode ? 'Update User' : 'Create User' }}
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

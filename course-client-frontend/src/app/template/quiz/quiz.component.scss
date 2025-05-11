@@ -1,0 +1,38 @@
+.stepper {
+    .step {
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-weight: bold;
+            background-color: #e0e0e0;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &.active-step {
+                background-color: #2e21df;
+                color: #fff;
+            }
+
+            &.completed-step {
+                background-color: #28a745;
+                color: #fff;
+            }
+
+            &.upcoming-step {
+                background-color: #dee2e6;
+                color: #6c757d;
+                cursor: not-allowed;
+            }
+
+            &.disabled {
+                pointer-events: none;
+            }
+        }
+
+        .step-label {
+            max-width: 80px;
+        }
+    }
+}

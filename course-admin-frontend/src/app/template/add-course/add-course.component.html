@@ -1,0 +1,92 @@
+<form [formGroup]="courseForm" (ngSubmit)="onSubmit()" class="card p-4 shadow rounded-4 border-0">
+    <div class="mb-3">
+        <button type="button" class="btn btn-outline-secondary" (click)="goBack()">
+            <i class="fas fa-arrow-left me-2"></i> Back
+        </button>
+    </div>
+    
+    <h4 class="mb-4 fw-bold" style="color: #0097B2;">📘 {{ isEditMode ? 'Edit Course' : 'Create Course' }}</h4>
+
+    <!-- Course Title -->
+    <div class="mb-3">
+        <label for="title" class="form-label">Course Title</label>
+        <input type="text" class="form-control" formControlName="title" placeholder="Enter course title" />
+    </div>
+
+    <!-- Fees, Duration, Quiz Exam Time in a Row -->
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <label for="fees" class="form-label">Fees (MMK)</label>
+            <input type="number" class="form-control" formControlName="fees" placeholder="Enter fees" />
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="duration" class="form-label">Duration</label>
+            <input type="text" class="form-control" formControlName="duration" placeholder="e.g. 3 months" />
+        </div>
+        <div class="col-md-4 mb-3">
+            <label for="quizTime" class="form-label">Quiz Exam Time</label>
+            <input type="number" class="form-control" formControlName="quizTime" placeholder="Minutes" />
+        </div>
+    </div>
+
+    <!-- Description -->
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" formControlName="description" rows="3"
+            placeholder="Brief description of the course..."></textarea>
+    </div>
+
+    <!-- Instructor Name -->
+    <div class="mb-3">
+        <label for="instructorName" class="form-label">Instructor Name</label>
+        <input type="text" class="form-control" formControlName="instructorName" placeholder="Instructor full name" />
+    </div>
+
+    <!-- Category -->
+    <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <select class="form-select" formControlName="categoryId" class="form-control">
+            <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+        </select>
+    </div>
+
+    <!-- Image Upload -->
+    <div class="mb-3" *ngIf="!courseForm.value.imageUrl">
+        <label class="form-label">Image</label>
+        <app-file-upload (fileUploaded)="onFileUploaded($event)"></app-file-upload>
+    </div>
+
+    <!-- Image Preview -->
+    <div class="mb-3" *ngIf="courseForm.value.imageUrl">
+        <div class="card shadow-sm border-0">
+            <div class="card-body d-flex align-items-center">
+                <img [src]="fullImageUrl" alt="Preview" class="img-thumbnail me-3"
+                    style="width: 100px; height: auto;" />
+                <div class="flex-grow-1">
+                    <p class="mb-0"><strong>Image Preview</strong></p>
+                </div>
+                <button type="button" class="btn btn-link text-danger fs-5" (click)="removeImage()"
+                    title="Remove Image">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="d-grid mt-1">
+    <button type="submit" class="btn w-30 text-white mt-3" [disabled]="courseForm.invalid"
+        style="background-color: #0097B2;">
+            {{ isEditMode ? 'Update' : 'Create' }} Course
+        </button>
+    </div>
+</form>
+
+<!-- Success & Error Messages -->
+<div *ngIf="successMessage" class="alert alert-success mt-3">
+    {{ successMessage }}
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger mt-3">
+    {{ errorMessage }}
+</div>

@@ -1,0 +1,67 @@
+<!-- Search Bar -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="fw-bold text-primary m-0">🗃️ Category List</h4>
+    <div class="row">
+        <app-search-bar (search)="onSearch($event)" (clear)="onClear()"></app-search-bar>
+    <button class="btn btn-primary ms-3 ml-2" (click)="onAddCategory()">
+        <i class="fas fa-plus me-1"></i>
+    </button></div>
+    
+   
+</div>
+
+<!-- Loading Spinner -->
+<div *ngIf="isLoading" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2 text-muted">Loading categories...</p>
+</div>
+
+<!-- Member List -->
+<div *ngIf="!isLoading && categories.length > 0" class=" mt-4">
+    <div class="card shadow border-0 rounded-4">
+        <div class="card-body">
+           
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead style="background-color: #0097B2;" class="text-white">
+                        <tr>
+                            
+                            <th>#</th>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let category of categories; index as i">
+                            <td>{{ i + 1 }}</td>
+                            <td>
+                                <img *ngIf="category.imageUrl" [src]="getImageUrl(category.imageUrl)" class="rounded-circle"
+                                    alt="Category Image" width="30" height="30" />
+                            </td>
+                            <td>{{ category.name }}</td>
+                            <td>
+                                <button class="btn btn-sm btn-warning me-2" (click)="onEdit(category.id)" style="margin-right: 8px;">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger" (click)="onDelete(category.id)" style="margin-right: 8px;">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <app-pagination [totalPages]="totalPages" [currentPage]="currentPage" (pageChange)="changePage($event)">
+            </app-pagination>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!isLoading && categories.length === 0" class="mt-5 alert alert-info">
+    <p>No categories found.</p>
+</div>

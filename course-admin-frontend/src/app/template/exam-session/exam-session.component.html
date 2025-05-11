@@ -1,0 +1,132 @@
+<h4 class="mb-4">📚 Exam Sessions</h4>
+
+
+<div *ngIf="exams && exams.length > 0" class="table-responsive">
+   
+    <div class="card shadow border-0 rounded-4">
+        <div class="card-body">
+    
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead style="background-color: #0097B2;" class="text-white"> <tr>
+                <th>#</th>
+                <th>Course Title</th>
+                <th>Instructor</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let session of exams; index as i">
+                <td>{{ i + 1 }}</td>
+                <td>{{ session.course.title }}</td>
+                <td>{{ session.course.instructorName }}</td>
+                <td>{{ session.startTime | date:'medium' }}</td>
+                <td>
+                    {{ session.endTime ? (session.endTime | date:'medium') : 'Not finished' }}
+                </td>
+                <td>
+                    <span class="badge" [ngClass]="{
+            'bg-success': session.isFinished,
+            'bg-warning': !session.isFinished
+          }">
+                        {{ session.isFinished ? 'Finished' : 'In Progress' }}
+                    </span>
+                </td>
+                <td>
+                    <button class="btn btn-sm btn-info me-2" (click)="openModal(session)" style="margin-right: 8px;">
+                        <i class="fas fa-clipboard-check"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table></div></div>
+</div>
+
+<div *ngIf="exams && exams.length === 0" class="alert alert-info">
+    No exam sessions found.
+</div>
+<!-- Improved Custom Modal -->
+
+
+<!-- Custom Modal Backdrop -->
+<div *ngIf="isModalOpen" class="custom-modal-backdrop">
+    <div class="modal-dialog modal-custom modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content bg-white text-dark rounded-4 shadow-lg overflow-hidden border-0">
+
+            <!-- Modal Header -->
+            <div class="modal-header p-3" style="background-color: #0097B2;">
+                <h5 class="modal-title text-white">📚 Exam Result</h5>
+                <i class="fa fa-times text-white" (click)="closeModal()"
+                    style="cursor: pointer; font-size: 1.5rem; margin-left: auto;" aria-hidden="true" title="Close"></i>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body p-4">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead style="background-color: #0097B2;" class="text-white text-center">
+                            <tr>
+                                <th>#</th>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Question</th>
+                                <th>Selected Option</th>
+                                <th>Correct Answer</th>
+                                <th>Course</th>
+                                <th>Options</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let quiz of answers; index as i"
+                                [ngClass]="{ 'table-success': quiz.isCorrect, 'table-danger': !quiz.isCorrect }">
+
+                                <td class="text-center">
+                                    <i class="fa"
+                                        [ngClass]="quiz.isCorrect ? 'fa-check-circle text-success' : 'fa-times-circle text-danger'"></i>
+                                </td>
+                                <td class="text-center">{{ i + 1 }}</td>
+                                <td>{{ quiz.quiz.title }}</td>
+                                <td>{{ quiz.quiz.description }}</td>
+                                <td>{{ quiz.quiz.content }}</td>
+                                <td>
+                                    <span class="badge" [ngClass]="quiz.isCorrect ? 'bg-success' : 'bg-danger'">
+                                        {{ quiz.selectedOption.content }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-info text-white">
+                                        {{ quiz.quiz.options[quiz.quiz.correctOption - 1]?.content || 'N/A' }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-secondary text-white">
+                                        {{ quiz.quiz.course?.title || 'N/A' }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span *ngIf="quiz.quiz.options?.length > 0" class="badge bg-secondary text-white">
+                                        {{ quiz.quiz.options.length }} {{ quiz.quiz.options.length === 1 ? 'option' :
+                                        'options' }}
+                                    </span>
+                                    <span *ngIf="!quiz.quiz.options?.length" class="text-muted">No options</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="modal-footer d-flex justify-content-end">
+                <button (click)="closeModal()" class="btn btn-outline-secondary">
+                    <i class="fa fa-times"></i> Close
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

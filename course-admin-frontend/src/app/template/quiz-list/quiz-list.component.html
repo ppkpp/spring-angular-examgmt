@@ -1,0 +1,97 @@
+<!-- Loading Spinner -->
+
+
+<!-- Search Bar -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="fw-bold text-primary m-0">📋 Quiz List</h4>
+    <div class="d-flex align-items-center">
+        <app-course-filter (courseSelected)="onCourseSelected($event)"></app-course-filter>
+        <button class="btn btn-primary ms-3 ml-2"  (click)="onAddQuizz()">
+            <i class="fas fa-plus me-1"></i> 
+        </button>
+    </div>
+</div>
+
+
+<div *ngIf="isLoading" class="text-center my-4">
+    <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <p>Loading quizzes...</p>
+</div>
+
+<!-- Quiz Table -->
+<div *ngIf="!isLoading && quizzes.length > 0" class="table-responsive">
+    <div class="card shadow border-0 rounded-4">
+        <div class="card-body">
+        
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead style="background-color: #0097B2;" class="text-white">
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Content</th>
+                            <th>Correct Option</th>
+                            <th>Course</th>
+                            <th>Options</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let quiz of quizzes; index as i">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ quiz.title }}</td>
+                            <td>{{ quiz.description }}</td>
+                            <td>{{ quiz.content }}</td>
+                            <td>
+                                <span class="badge bg-success">{{ quiz.correctOption }}</span>
+                            </td>
+                            <td>
+                                <span class="badge bg-info text-dark" role="button" placement="top"
+                                    ngbTooltip="View Course">
+                                    {{ quiz.course?.title || 'N/A' }}
+                                </span>
+                            </td>
+                            <td>
+                                <span *ngIf="quiz.option?.length > 0" class="badge bg-secondary">
+                                    {{ quiz.option.length }} {{ quiz.option.length === 1 ? 'option' : 'options' }}
+                                </span>
+                                <span *ngIf="!quiz.option || quiz.option.length === 0" class="text-muted">
+                                    No options Required
+                                </span>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-info me-2" (click)="onDetail(quiz.id)"
+                                    style="margin-right: 8px;">
+                                    <i class="fa fa-info-circle"></i>
+                                </button>
+                                <button class="btn btn-sm btn-warning me-2" (click)="onEdit(quiz.id)"
+                                    style="margin-right: 8px;">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger" (click)="onDelete(quiz.id)"
+                                    style="margin-right: 8px;">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <app-pagination [totalPages]="totalPages" [currentPage]="currentPage" (pageChange)="changePage($event)">
+            </app-pagination>
+        </div>
+    </div>
+
+    <app-pagination [totalPages]="totalPages" [currentPage]="currentPage" (pageChange)="changePage($event)">
+    </app-pagination>
+</div>
+
+<!-- No Data Found -->
+<div *ngIf="!isLoading && quizzes.length === 0" class="alert alert-info">
+    <p>No quizzes found.</p>
+</div>

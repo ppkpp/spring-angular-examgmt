@@ -1,0 +1,21 @@
+<div class="">
+    <div class="ng-autocomplete">
+        <ng-autocomplete [data]="data" [searchKeyword]="keyword" placeholder="🔍 Select a Course"
+            (selected)="selectEvent($event)" (inputChanged)="onChangeSearch($event)" (inputFocused)="onFocused($event)"
+            [itemTemplate]="selectCourseTemplate" [notFoundTemplate]="notFoundTemplate">
+        </ng-autocomplete>
+
+        <!-- Custom Item Template -->
+        <ng-template #selectCourseTemplate let-item>
+            <a href="javascript:void(0)" class="d-flex align-items-center p-2">
+                <i class="fas fa-book me-2 text-primary"></i>
+                <span [innerHTML]="item.title"></span>
+            </a>
+        </ng-template>
+
+        <!-- No Records Template -->
+        <ng-template #notFoundTemplate>
+            <div class="text-muted p-2">🚫 No courses found.</div>
+        </ng-template>
+    </div>
+</div>

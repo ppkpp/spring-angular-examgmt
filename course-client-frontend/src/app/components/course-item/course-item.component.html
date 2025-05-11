@@ -1,0 +1,16 @@
+<div class="course position-relative mb-2">
+    <div class="course_image">
+        <img [src]="getImageUrl(course.imageUrl)" alt="" />
+        <div class="course_badge mt-1">
+            <div class="course_mark trans_200"><a >{{ formatMoney(course.fees) }}</a></div>
+        </div>
+    </div>
+    <div class="course_body">
+        <div class="course_title" (click)="goToCourseDetails(course.id)">
+            <a >{{ course.title }}</a>
+        </div>
+        <div class="course_text">
+            <p>{{ course.description }}</p>
+        </div>
+    </div>
+</div>

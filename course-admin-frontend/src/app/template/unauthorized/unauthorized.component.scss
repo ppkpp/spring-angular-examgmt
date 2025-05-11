@@ -1,0 +1,73 @@
+.unauthorized-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    background-color: #f8f9fa;
+    /* Light background */
+    margin: 0;
+}
+
+.content {
+    text-align: center;
+    background-color: white;
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+    max-width: 450px;
+    /* Slightly smaller box */
+    width: 100%;
+    transition: transform 0.3s ease-in-out;
+}
+
+.content:hover {
+    transform: translateY(-10px);
+    /* Subtle hover effect on content */
+}
+
+.icon {
+    margin-bottom: 20px;
+    color: #f44336;
+    /* Red color for icon */
+}
+
+.message {
+    font-size: 30px;
+    /* Larger font for better emphasis */
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+    /* More space between message and description */
+}
+
+.description {
+    font-size: 17px;
+    /* Slightly larger text for better readability */
+    color: #555;
+    /* Softer gray for text */
+    margin-bottom: 20px;
+}
+
+.actions .btn {
+    padding: 12px 25px;
+    font-size: 17px;
+    font-weight: bold;
+    border-radius: 50px;
+    /* Rounder button edges for a modern look */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.actions .btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+    /* Slight zoom-in effect on button hover */
+}
+
+.actions .btn:focus {
+    outline: none;
+    /* Removes outline when button is clicked */
+}

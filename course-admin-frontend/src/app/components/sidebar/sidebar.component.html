@@ -1,0 +1,103 @@
+<nav id="sidebar">
+  <div class="p-4 pt-5">
+    <a href="#" class="img logo rounded-circle mb-5" [style.backgroundImage]="'url(images/logo.png)'"></a>
+
+    <ul class="list-unstyled components mb-5" id="sidebarAccordion">
+      <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a routerLink="/">
+          <i class="fas fa-home"></i> Home
+        </a>
+      </li>
+
+      <li>
+        <a href="#categoryMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+          <i class="fas fa-th"></i> Category
+        </a>
+        <ul class="collapse list-unstyled subMenu" id="categoryMenu" data-parent="#sidebarAccordion">
+          <li routerLinkActive="active">
+            <a [routerLink]="['/category-list']" class="subText">List</a>
+          </li>
+          <li routerLinkActive="active" *ngIf="authService.hasRole('TEACHER')">
+            <a [routerLink]="['/add-category']" class="subText">Create</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="#courseMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+          <i class="fas fa-chalkboard-teacher"></i> Course
+        </a>
+        <ul class="collapse list-unstyled subMenu" id="courseMenu" data-parent="#sidebarAccordion">
+          <li routerLinkActive="active">
+            <a [routerLink]="['/course-list']" class="subText">List</a>
+          </li>
+          <li routerLinkActive="active" *ngIf="authService.hasRole('TEACHER')">
+            <a [routerLink]="['/add-course']" class="subText">Create</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="#quizMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+          <i class="fas fa-puzzle-piece"></i> Quiz
+        </a>
+        <ul class="collapse list-unstyled subMenu" id="quizMenu" data-parent="#sidebarAccordion">
+          <li routerLinkActive="active">
+            <a [routerLink]="['/quiz-list']" class="subText">List</a>
+          </li>
+          <li routerLinkActive="active">
+            <a [routerLink]="['/add-quiz']" *ngIf="authService.hasRole('TEACHER')" class="subText">Create</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="#videoMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+          <i class="fas fa-video"></i> Videos
+        </a>
+        <ul class="collapse list-unstyled subMenu" id="videoMenu" data-parent="#sidebarAccordion">
+          <li routerLinkActive="active">
+            <a [routerLink]="['/video-list']" class="subText">List</a>
+          </li>
+          <li routerLinkActive="active">
+            <a [routerLink]="['/add-video']" *ngIf="authService.hasRole('TEACHER')" class="subText">Create</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a href="#studentMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+          <i class="fas fa-users"></i> Student
+        </a>
+        <ul class="collapse list-unstyled subMenu" id="studentMenu" data-parent="#sidebarAccordion">
+          <li routerLinkActive="active">
+            <a [routerLink]="['/student-list']" class="subText">List</a>
+          </li>
+        </ul>
+      </li>
+
+      <li  *ngIf="authService.hasRole('ADMIN')">
+        <a href="#memberMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+          <i class="fas fa-users-cog"></i> Member
+        </a>
+        <ul class="collapse list-unstyled subMenu" id="memberMenu" data-parent="#sidebarAccordion" >
+          <li routerLinkActive="active">
+            <a [routerLink]="['/user-list']" class="subText">List</a>
+          </li>
+          <li routerLinkActive="active">
+            <a [routerLink]="['/add-user']" class="subText">Create</a>
+          </li>
+        </ul>
+      </li>
+
+      <!-- Logout -->
+      <li *ngIf="authService.isLoggedIn()" (click)="confirmLogout()">
+        <a><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </li>
+    </ul>
+
+    <div class="footer sidebar-footer">
+      <p>Logged in as: {{ authService.getRole() }}</p>
+    </div>
+  </div>
+</nav>

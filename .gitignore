@@ -1,0 +1,39 @@
+# Ignore Docker volumes
+db_data/
+uploads/
+
+# Ignore environment files
+.env
+
+# Ignore Docker-related files that might be generated
+**/.DS_Store
+**/Thumbs.db
+
+# Node modules (for frontends)
+course-admin-frontend/node_modules/
+course-client-frontend/node_modules/
+
+# Angular build outputs (if applicable)
+course-admin-frontend/dist/
+course-client-frontend/dist/
+
+# Java build files (for Spring Boot apps)
+course-admin-backend/target/
+course-client-backend/target/
+
+# Logs
+*.log
+logs/
+**/logs/
+
+# OS / IDE-specific files
+.vscode/
+.idea/
+*.iml
+
+# Ignore IntelliJ out directory
+out/
+
+# Backup files
+*~
+*.swp

@@ -1,0 +1,85 @@
+<div *ngIf="isLoading" class="text-center my-4">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+  <p class="mt-2 text-muted">Loading courses...</p>
+</div>
+
+<div *ngIf="!isLoading && videoCourses.length > 0" class="events">
+  <h4 class="p-2 mb-4 text-primary fw-bold border-bottom border-primary">
+    ▶️ Video List
+  </h4>
+
+  <div class="row g-3">
+    <div
+      class="col-12 col-sm-6 col-lg-4 col-xl-3"
+      *ngFor="let course of videoCourses; index as i"
+    >
+      <div class="video-card h-100">
+        <div class="video-card__image">
+          <img
+            *ngIf="course.imageUrl"
+            [src]="getImageUrl(course.imageUrl)"
+            class="img-fluid"
+            alt="Course image"
+          />
+          <div class="video-card__headInfo" >
+            <span class="badge bg-dark opacity-75" >
+              <i class="fa fa-clock-o me-1"></i>
+              {{ getFormattedDuration(course.duration) }}
+            </span>
+          </div>
+          <div class="play-overlay" (click)="openModal(course.imageUrl)">
+            <i class="fa fa-play-circle"></i>
+          </div>
+        </div>
+        <div class="video-card__info p-3">
+          <h5 class="text-light fw-bold mb-1 item-txt-limit">
+            {{ course.title }} ({{ course.course.title }})
+          </h5>
+          <p class="text-light small item-txt-limit">
+            {{ course.description }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-pagination
+  [totalPages]="totalPages"
+  [currentPage]="currentPage"
+  (pageChange)="changePage($event)"
+>
+</app-pagination>
+
+
+<!-- No Courses Found -->
+<div *ngIf="!isLoading && videoCourses.length === 0" class="events text-center mt-5">
+    <div class="alert alert-info d-inline-block px-4 py-3 rounded-4 shadow-sm">
+        <i class="fa fa-info-circle me-2"></i>
+        No videos available for this course yet. Please check back later.
+    </div>
+</div>
+
+
+<!-- Video Modal -->
+<div *ngIf="isModalOpen" class="custom-modal-backdrop" tabindex="-1" aria-labelledby="videoModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content bg-black text-white rounded-4 shadow-lg overflow-hidden">
+            <div class="modal-header border-0 p-3">
+                <h5 class="modal-title" id="videoModalLabel">🎬 Now Playing</h5>
+                <i class="fa fa-times text-white" (click)="closeModal()" style="cursor: pointer; font-size: 1.5rem;"></i>
+                    
+            </div>
+            <div class="modal-body p-0">
+                <div class="ratio ratio-16x9">
+                    <video *ngIf="videoUrl" [src]="videoUrl" controls autoplay class="rounded-bottom w-100">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

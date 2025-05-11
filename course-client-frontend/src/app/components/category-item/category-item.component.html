@@ -1,0 +1,19 @@
+<div class="event mb-3 ml-1">
+  <div class="event_image">
+    <img [src]="getImageUrl(category.imageUrl)" alt="" />
+  </div>
+  <div
+    class="event_date d-flex flex-column align-items-center justify-content-center"
+  >
+    <div class="event_day">{{ getDay(category.createdDate) }}</div>
+    <div class="event_month">{{ getMonth(category.createdDate) }}</div>
+  </div>
+  <div
+    class="event_body d-flex flex-row align-items-center justify-content-start"
+  >
+    <div class="event_title">
+      <a (click)="goToCourse(category.id)">{{ category.name }}</a>
+    </div>
+    <div class="event_tag ml-auto">{{ getYear(category.createdDate) }}</div>
+  </div>
+</div>

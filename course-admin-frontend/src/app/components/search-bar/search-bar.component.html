@@ -1,0 +1,18 @@
+<div class="input-group shadow-sm align-items-stretch" style="max-width: 400px;">
+    <input type="text" class="form-control border-end-0 rounded-start-pill px-4 py-2"
+        placeholder="🔍 Search category by name..." [(ngModel)]="searchTerm" (keyup.enter)="onSearch()" />
+
+    <!-- Search button shown only when not searching -->
+    <button *ngIf="!isSearching"
+        class="btn btn-outline-primary border-start-0 rounded-end-pill d-flex align-items-center" type="button"
+        (click)="onSearch()" title="Search" style="padding-left: 12px; padding-right: 12px;">
+        <i class="fas fa-search"></i>
+    </button>
+
+    <!-- Clear button shown only when searching -->
+    <button *ngIf="isSearching"
+        class="btn btn-outline-secondary border-start-0 rounded-end-pill d-flex align-items-center" type="button"
+        (click)="onClear()" title="Cancel Search" style="padding-left: 12px; padding-right: 12px;">
+        <i class="fas fa-times"></i>
+    </button>
+</div>

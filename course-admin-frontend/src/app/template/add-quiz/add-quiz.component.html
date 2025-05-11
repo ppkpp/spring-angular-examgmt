@@ -1,0 +1,59 @@
+<form [formGroup]="quizForm" (ngSubmit)="onSubmit()" class="card p-4 shadow rounded-4 border-0">
+    <div class="mb-3">
+        <button type="button" class="btn btn-outline-secondary" (click)="goBack()">
+            <i class="fas fa-arrow-left me-2"></i> Back
+        </button>
+    </div>
+    <div class="mb-3">
+        <label>Title</label>
+        <input type="text" class="form-control" formControlName="title" />
+    </div>
+
+    <div class="mb-3">
+        <label>Description</label>
+        <textarea class="form-control" formControlName="description"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label>Content</label>
+        <textarea class="form-control" formControlName="content"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label>Correct Option (1, 2, 3, 4)</label>
+        <input type="number" class="form-control" formControlName="correctOption" min="1" max="4" />
+    </div>
+
+    <div class="mb-3">
+        <label>Course</label>
+        <div class="ng-autocomplet">
+            <ng-autocomplete [data]="data" [searchKeyword]="keyword" placeholder="Select Course"
+                (selected)="selectEvent($event)" (inputChanged)="onChangeSearch($event)" (inputFocused)="onFocused($event)"
+                [itemTemplate]="selectCoruseTemplate" [notFoundTemplate]="notFoundTemplate">
+            </ng-autocomplete>
+    
+            <ng-template #selectCoruseTemplate let-item>
+                <a href="javascript:void(0)">
+                    <span [innerHTML]="item.title"></span>
+                </a>
+            </ng-template>
+    
+            <ng-template #notFoundTemplate let-notFound>
+                <div>No records found</div>
+            </ng-template>
+        </div>
+    </div>
+
+
+    <button type="submit" class="btn w-100 text-white mt-3" [disabled]="quizForm.invalid"
+        style="background-color: #0097B2;">
+        {{ isEditMode ? "Update" : "Create" }} Quiz
+    </button>
+</form>
+
+<div *ngIf="successMessage" class="alert alert-success mt-3">
+    {{ successMessage }}
+</div>
+<div *ngIf="errorMessage" class="alert alert-danger mt-3">
+    {{ errorMessage }}
+</div>

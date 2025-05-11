@@ -1,0 +1,127 @@
+<!-- Loading Spinner -->
+<div
+  *ngIf="isLoading"
+  class="d-flex flex-column align-items-center justify-content-center my-5"
+>
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+  <p class="mt-3 text-muted">Fetching quizzes, please wait...</p>
+</div>
+
+<!-- Quiz Table -->
+<div *ngIf="!isLoading && quizzes.length > 0" class="events table-responsive">
+  <h4 class="mb-2">📋 Quiz List </h4>
+  <div class="timer mb-2" *ngIf="examTime > 0">
+    ⏳ Time Remaining: {{ timerMinutes }}:{{ timerSeconds < 10 ? '0' + timerSeconds : timerSeconds }}
+  </div>
+  <h3 class="mb-4">
+    <ng-container *ngIf="quizzes.length > 0 && quizzes[0].course">
+      <div class="d-flex align-items-center gap-3 mt-2 mt-md-0">
+        <span class="badge bg-info text-white">
+          🏫 {{ quizzes[0].course.title }}
+        </span>
+        <span class="badge bg-success ml-2 text-white">
+          ⏱ {{ quizzes[0].course.quizTime || "N/A" }} minutes
+        </span>
+        
+      </div>
+    </ng-container>
+  </h3>
+
+  <div class="container my-4">
+    <!-- Stepper Header -->
+    <div
+      class="d-flex justify-content-center align-items-center overflow-auto mb-4"
+    >
+      <div class="stepper d-flex">
+        <div
+          class="step d-flex flex-column align-items-center mx-3"
+          *ngFor="let step of steps; let i = index"
+        >
+          <div
+            class="step-circle d-flex align-items-center justify-content-center"
+            [ngClass]="{
+              'active-step': i === currentStep,
+              'completed-step': i < currentStep,
+              'upcoming-step': i > currentStep
+            }"
+            (click)="goToStep(i)"
+            [class.disabled]="i > currentStep"
+          >
+            {{ i + 1 }}
+          </div>
+          <div class="step-label mt-2 small text-center">
+            {{ "Step " + (i + 1) }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step Content -->
+    <div class="card shadow-sm p-4">
+      <ng-container *ngIf="steps.length">
+        <!-- Step Title and Description -->
+        <h5 class="fw-bold mb-3 text-center">Step {{ currentStep + 1 }} : {{ steps[currentStep]?.title }}</h5>
+        <p class="text-center mb-4">
+          <strong>Q:</strong> {{ steps[currentStep]?.content }}
+        </p>
+        <!-- Options -->
+        <div class="mb-4 ml-5">
+          <div *ngFor="let option of getSortedOptions()" class="mb-3">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                [id]="'option' + option.optionNumber"
+                [name]="'quiz' + currentStep"
+                [value]="option.optionNumber"
+                (change)="onOptionSelected(option.optionNumber)"
+                [checked]="selectedAnswers === option.optionNumber"
+              />
+              <label class="form-check-label" [for]="'option' + option.id">
+                {{ option.content }} 
+              </label>
+            </div>
+          </div>
+          <div *ngIf="!isLoading && errorMsg" class="alert alert-danger text-center my-4">
+          <i class="fa fa-exclamation-triangle"></i>
+
+            {{ errorMsg }}
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Navigation Buttons -->
+      <div class="d-flex justify-content-between mt-4">
+        <button
+          class="btn btn-outline-secondary"
+          (click)="prevStep()"
+          [disabled]="currentStep === 0"
+        >
+          ⬅ Back
+        </button>
+        <button
+        *ngIf="!errorMsg"
+          class="btn btn-outline-primary"
+          (click)="nextStep(steps[currentStep]?.id)"
+          [disabled]="currentStep === steps.length"
+        >
+          {{ currentStep === steps.length - 1 ? ' Submit' : 'Next ➡' }}
+
+        </button>
+        <button *ngIf="errorMsg" class="btn btn-outline-warning" (click)="skipStep()">
+          Skip 
+        </button>
+      </div>
+    </div>
+
+    <!-- No Data Found -->
+    <div
+      *ngIf="!isLoading && quizzes.length === 0"
+      class="alert alert-warning text-center my-5"
+    >
+      <i class="fas fa-exclamation-circle me-2"></i> No quizzes found.
+    </div>
+  </div>
+</div>
